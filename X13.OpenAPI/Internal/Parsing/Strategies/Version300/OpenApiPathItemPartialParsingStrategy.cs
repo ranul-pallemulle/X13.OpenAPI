@@ -31,7 +31,7 @@ namespace X13.OpenAPI.Internal.Parsing.Strategies.Version300
                         element.Servers = (childNode.Value as ListParsingNode).CreateList<OpenApiServer, OpenApiServerParsingStrategy>();
                         break;
                     case "parameters":
-                        element.Parameters = (childNode.Value as ListParsingNode).CreateList<OpenApiParameter, ParameterParsingStrategy>();
+                        element.Parameters = (childNode.Value as ListParsingNode).CreateList<OpenApiParameter, OpenApiParameterParsingStrategy>();
                         break;
                 }
             }
