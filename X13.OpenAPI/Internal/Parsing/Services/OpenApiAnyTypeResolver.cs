@@ -4,7 +4,7 @@ using System.Text;
 
 namespace X13.OpenAPI.Internal.Parsing.Services
 {
-    class OpenApiAnyTypeResolver
+    internal class OpenApiAnyTypeResolver
     {
     }
 }

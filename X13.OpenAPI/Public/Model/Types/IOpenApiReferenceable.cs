@@ -4,7 +4,10 @@ using System.Text;
 
 namespace X13.OpenAPI.Public.Model.Types
 {
-    interface IOpenApiReferenceable
+    public interface IOpenApiReferenceable
     {
+        bool UnresolvedReference { get; set; }
+        OpenApiReference Reference { get; set; }
+        OpenApiReferenceType ReferenceType { get; }
     }
 }

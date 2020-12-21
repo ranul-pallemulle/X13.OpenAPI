@@ -4,7 +4,16 @@ using System.Text;
 
 namespace X13.OpenAPI.Public.Model.Types
 {
-    class OpenApiNull
+    public class OpenApiNull : IOpenApiAny
     {
+        public OpenApiAnyType AnyType => OpenApiAnyType.Null;
+        public string GetString()
+        {
+            return this.ToString();
+        }
+        public override string ToString()
+        {
+            return null;
+        }
     }
 }

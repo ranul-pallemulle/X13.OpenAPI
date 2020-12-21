@@ -4,7 +4,12 @@ using System.Text;
 
 namespace X13.OpenAPI.Public.Model.Types
 {
-    class OpenApiObject
+    public class OpenApiObject : Dictionary<string, IOpenApiAny> , IOpenApiAny
     {
+        public OpenApiAnyType AnyType => OpenApiAnyType.Object;
+        public string GetString()
+        {
+            return this.ToString(); // TODO: maybe do something better here
+        }
     }
 }

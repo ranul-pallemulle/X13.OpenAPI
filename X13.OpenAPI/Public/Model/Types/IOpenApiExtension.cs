@@ -4,7 +4,7 @@ using System.Text;
 
 namespace X13.OpenAPI.Public.Model.Types
 {
-    interface IOpenApiExtension
+    public interface IOpenApiExtension
     {
     }
 }

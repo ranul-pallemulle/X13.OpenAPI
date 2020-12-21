@@ -1,10 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using X13.OpenAPI.Public.Model.Types;
 
 namespace X13.OpenAPI.Public.Model
 {
-    class OpenApiParameter
+    public class OpenApiParameter : IOpenApiReferenceable, IOpenApiExtensible, IOpenApiElement
     {
+        public string Name { get; set; }
+        public OpenApiParameterLocation? In { get; set; }
+        public string Description { get; set; }
+        public bool Required { get; set; }
+        public bool Deprecated { get; set; }
+        public bool AllowEmptyValue { get; set; }
+        public OpenApiParameterStyle? Style { get; set; }
+        public bool Explode { get; set; }
+        public bool AllowReserved { get; set; }
+        public OpenApiSchema Schema { get; set; }
+        public IDictionary<string, OpenApiMediaType> Content { get; set; } = new Dictionary<string, OpenApiMediaType>();
+        public IOpenApiAny Example { get; set; }
+        public IDictionary<string, OpenApiExample> Examples { get; set; } = new Dictionary<string, OpenApiExample>();
+        public bool UnresolvedReference { get; set; }
+        public OpenApiReference Reference { get; set; }
+        public OpenApiReferenceType ReferenceType { get; } = OpenApiReferenceType.Parameter;
+        public IDictionary<string, IOpenApiExtension> Extensions { get; set; } = new Dictionary<string, IOpenApiExtension>();
+    }
+
+    public enum OpenApiParameterLocation
+    {
+        Query,
+        Header,
+        Path,
+        Cookie,
+        Body, // used only for swagger 2 parsing
+        FormData, // used only for swagger 2 parsing
     }
 }

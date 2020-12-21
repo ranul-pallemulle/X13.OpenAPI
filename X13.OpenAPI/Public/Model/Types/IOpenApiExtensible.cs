@@ -4,7 +4,8 @@ using System.Text;
 
 namespace X13.OpenAPI.Public.Model.Types
 {
-    interface IOpenApiExtensible
+    public interface IOpenApiExtensible
     {
+        IDictionary<string, IOpenApiExtension> Extensions { get; set; }
     }
 }
