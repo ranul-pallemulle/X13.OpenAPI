@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using X13.OpenAPI.Internal.Parsing.Context;
 using X13.OpenAPI.Internal.Parsing.Interfaces;
 using X13.OpenAPI.Public.Model;
@@ -6,7 +7,7 @@ using X13.OpenAPI.Public.Model.Types;
 
 namespace X13.OpenAPI.Internal.Parsing.Strategies.Version300
 {
-    internal class OpenApiExternalDocsParsingStrategy : IOpenApiParsingStrategy
+    internal class OpenApiSecurityRequirementParsingStrategy : IOpenApiParsingStrategy
     {
         public void Parse(ParsingNode parsingNode, IOpenApiElement parsingElement)
         {
@@ -14,18 +15,15 @@ namespace X13.OpenAPI.Internal.Parsing.Strategies.Version300
             {
                 throw new ArgumentException();
             }
-            var element = parsingElement as OpenApiExternalDocs;
+            var element = parsingElement as OpenApiSecurityRequirement;
             foreach (var childNode in node.childNodes)
             {
-                switch (childNode.Name)
+                var requirements = new List<string>();
+                foreach (var name in (childNode.Value as ListParsingNode).childNodes)
                 {
-                    case "description":
-                        element.Description = childNode.GetSimpleValue<string>();
-                        break;
-                    case "url":
-                        element.Url = childNode.GetSimpleValue<string>();
-                        break;
+                    requirements.Add((string)(name as ValueParsingNode).Value);
                 }
+                element.Add(childNode.Name, requirements);
             }
         }
     }

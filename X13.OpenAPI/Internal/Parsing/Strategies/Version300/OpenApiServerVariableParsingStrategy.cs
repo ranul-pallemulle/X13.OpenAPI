@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using X13.OpenAPI.Internal.Parsing.Context;
 using X13.OpenAPI.Internal.Parsing.Interfaces;
 using X13.OpenAPI.Public.Model;
@@ -6,7 +6,7 @@ using X13.OpenAPI.Public.Model.Types;
 
 namespace X13.OpenAPI.Internal.Parsing.Strategies.Version300
 {
-    internal class OpenApiExternalDocsParsingStrategy : IOpenApiParsingStrategy
+    internal class OpenApiServerVariableParsingStrategy : IOpenApiParsingStrategy
     {
         public void Parse(ParsingNode parsingNode, IOpenApiElement parsingElement)
         {
@@ -14,16 +14,19 @@ namespace X13.OpenAPI.Internal.Parsing.Strategies.Version300
             {
                 throw new ArgumentException();
             }
-            var element = parsingElement as OpenApiExternalDocs;
+            var element = parsingElement as OpenApiServerVariable;
             foreach (var childNode in node.childNodes)
             {
                 switch (childNode.Name)
                 {
+                    case "Enum":
+                        element.Enum = (childNode.Value as ListParsingNode).CreateList(n => (string)(n as ValueParsingNode).Value);
+                        break;
+                    case "default":
+                        element.Default = childNode.GetSimpleValue<string>();
+                        break;
                     case "description":
                         element.Description = childNode.GetSimpleValue<string>();
-                        break;
-                    case "url":
-                        element.Url = childNode.GetSimpleValue<string>();
                         break;
                 }
             }

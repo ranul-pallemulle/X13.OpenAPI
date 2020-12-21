@@ -4,25 +4,28 @@ using X13.OpenAPI.Internal.Parsing.Interfaces;
 using X13.OpenAPI.Public.Model;
 using X13.OpenAPI.Public.Model.Types;
 
-internal class OpenApiInfoLicenseParsingStrategy : IOpenApiParsingStrategy
+namespace X13.OpenAPI.Internal.Parsing.Strategies.Version20
 {
-    public void Parse(ParsingNode parsingNode, IOpenApiElement parsingElement)
+    internal class OpenApiInfoLicenseParsingStrategy : IOpenApiParsingStrategy
     {
-        if (!(parsingNode is ObjectParsingNode node))
+        public void Parse(ParsingNode parsingNode, IOpenApiElement parsingElement)
         {
-            throw new ArgumentException();
-        }
-        var element = parsingElement as OpenApiLicense;
-        foreach (var childNode in node.childNodes)
-        {
-            switch (childNode.Name)
+            if (!(parsingNode is ObjectParsingNode node))
             {
-                case "name":
-                    element.Name = childNode.GetSimpleValue<string>();
-                    break;
-                case "url":
-                    element.Url = childNode.GetSimpleValue<string>();
-                    break;
+                throw new ArgumentException();
+            }
+            var element = parsingElement as OpenApiLicense;
+            foreach (var childNode in node.childNodes)
+            {
+                switch (childNode.Name)
+                {
+                    case "name":
+                        element.Name = childNode.GetSimpleValue<string>();
+                        break;
+                    case "url":
+                        element.Url = childNode.GetSimpleValue<string>();
+                        break;
+                }
             }
         }
     }
